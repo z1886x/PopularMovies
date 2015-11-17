@@ -2,12 +2,18 @@ package me.hassans.www.popularmovies;
 
 import android.content.res.Configuration;
 import android.graphics.drawable.GradientDrawable;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.squareup.okhttp.HttpUrl;
@@ -39,15 +45,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
+        Toolbar myToolbar = (Toolbar)findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
         RecyclerView rv = (RecyclerView) findViewById(R.id.main_image_recycler);
         moviesResult = new ArrayList<>();
         movieAdapter = new MovieAdapter(moviesResult, this);
         rv.setAdapter(movieAdapter);
-
-        //get columns
-
-
         rv.setLayoutManager(new GridLayoutManager(this, getColumnsToShow()));
 
 
@@ -76,7 +82,28 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        setUpSortActionView(menu);
+
         return true;
+    }
+
+    private void setUpSortActionView(Menu menu) {
+        MenuItem item = menu.findItem(R.id.action_spinner);
+        Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.search_spinner_array,R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner.setAdapter(adapter); // set the adapter to provide layout of rows and content
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this,"SELECTED", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -95,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_spinner) {
             return true;
         }
 

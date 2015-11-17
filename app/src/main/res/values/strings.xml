@@ -4,4 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="default_api_image_size">w185</string>
+    <array name="search_spinner_array">
+        <item>Most popular</item>
+        <item>Highest rated</item>
+    </array>
 </resources>
