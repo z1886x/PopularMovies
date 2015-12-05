@@ -41,10 +41,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         //get data
         Result currentResult = mMovies.get(position);
-        String title = currentResult.getTitle();
         String currentImageSize = mContext.getString(R.string.default_api_image_size);
         Picasso.with(mContext).load(currentResult.getPosterUri(currentImageSize)).into(holder.movieImageIv);
-        holder.movieTitleTv.setText(title);
 
 
     }
@@ -55,13 +53,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView movieTitleTv;
         public ImageView movieImageIv;
 
         public ViewHolder(View itemView) {
             super(itemView);
             movieImageIv = (ImageView) itemView.findViewById(R.id.movie_banner_iv);
-            movieTitleTv = (TextView) itemView.findViewById(R.id.movie_title_tv);
         }
     }
 }

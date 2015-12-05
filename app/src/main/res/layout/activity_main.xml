@@ -6,22 +6,29 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        />
+
+
 
     <Spinner
         android:id="@+id/sort_spnr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:entries="@array/search_spinner_array"></Spinner>
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+    </Spinner>
 
     <android.support.v7.widget.RecyclerView
+
         android:id="@+id/main_image_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
