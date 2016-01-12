@@ -29,7 +29,7 @@ import retrofit.Retrofit;
 public class MainActivity extends AppCompatActivity {
 
 
-    public static final String EXTRA_MOVIE = "EXTRA_MOVIE";
+
     private MovieAdapter movieAdapter;
     private List<Result> moviesResult;
 
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Result result = moviesResult.get(position);
                 Intent intent = new Intent(MainActivity.this,DetailActivity.class);
-                intent.putExtra(EXTRA_MOVIE,result);
+                intent.putExtra(DetailActivity.EXTRA_MOVIE,result);
                 startActivity(intent);
             }
 

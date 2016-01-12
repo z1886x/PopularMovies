@@ -1,4 +1,4 @@
-package me.hassans.www.popularmovies;
+package me.hassans.www.popularmovies.constants;
 
 /**
  * Created by hassan on 11/15/2015.
