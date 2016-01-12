@@ -4,13 +4,15 @@ package me.hassans.www.popularmovies.api.models;
  * Created by hassan on 11/15/2015.
  */
      import android.net.Uri;
+     import android.os.Parcel;
+     import android.os.Parcelable;
 
      import java.util.ArrayList;
         import java.util.List;
         import com.google.gson.annotations.Expose;
         import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class Result implements Parcelable {
 
     public static final String BASE_IMAGE_URL = "http://image.tmdb.org/t/p";
     @SerializedName("adult")
@@ -315,4 +317,57 @@ public class Result {
         return uri.build();
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.adult);
+        dest.writeString(this.backdropPath);
+        dest.writeList(this.genreIds);
+        dest.writeValue(this.id);
+        dest.writeString(this.originalLanguage);
+        dest.writeString(this.originalTitle);
+        dest.writeString(this.overview);
+        dest.writeString(this.releaseDate);
+        dest.writeString(this.posterPath);
+        dest.writeValue(this.popularity);
+        dest.writeString(this.title);
+        dest.writeValue(this.video);
+        dest.writeValue(this.voteAverage);
+        dest.writeValue(this.voteCount);
+    }
+
+    public Result() {
+    }
+
+    protected Result(Parcel in) {
+        this.adult = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.backdropPath = in.readString();
+        this.genreIds = new ArrayList<Integer>();
+        in.readList(this.genreIds, List.class.getClassLoader());
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.originalLanguage = in.readString();
+        this.originalTitle = in.readString();
+        this.overview = in.readString();
+        this.releaseDate = in.readString();
+        this.posterPath = in.readString();
+        this.popularity = (Float) in.readValue(Float.class.getClassLoader());
+        this.title = in.readString();
+        this.video = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.voteAverage = (Float) in.readValue(Float.class.getClassLoader());
+        this.voteCount = (Integer) in.readValue(Integer.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Result> CREATOR = new Parcelable.Creator<Result>() {
+        public Result createFromParcel(Parcel source) {
+            return new Result(source);
+        }
+
+        public Result[] newArray(int size) {
+            return new Result[size];
+        }
+    };
 }

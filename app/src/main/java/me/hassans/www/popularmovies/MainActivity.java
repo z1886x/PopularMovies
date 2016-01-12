@@ -1,5 +1,6 @@
 package me.hassans.www.popularmovies;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import retrofit.Retrofit;
 public class MainActivity extends AppCompatActivity {
 
 
+    public static final String EXTRA_MOVIE = "EXTRA_MOVIE";
     private MovieAdapter movieAdapter;
     private List<Result> moviesResult;
 
@@ -40,8 +42,21 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar)findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         RecyclerView rv = (RecyclerView) findViewById(R.id.main_image_recycler);
+
         moviesResult = new ArrayList<>();
         movieAdapter = new MovieAdapter(moviesResult, this);
+        movieAdapter.setOnItemClickListener(new MovieAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+
+                Result result = moviesResult.get(position);
+                Intent intent = new Intent(MainActivity.this,DetailActivity.class);
+                intent.putExtra(EXTRA_MOVIE,result);
+                startActivity(intent);
+            }
+
+
+        });
         rv.setAdapter(movieAdapter);
         rv.setLayoutManager(new GridLayoutManager(this, getColumnsToShow()));
 
